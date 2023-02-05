@@ -1,3 +1,4 @@
+import { createBoard } from "./dom.js"
 import{playerGameBoard,botGameBoard} from "./index.js"
 
 function Ship(name,length){
@@ -38,8 +39,10 @@ function GameBoard(){
             for(let j = 0; j < ship.length; j++){
                 if(coor[0]  > 9 || coor[0]  < 0 || coor[1] + j > 9 || coor[1] + j < 0 
                 || this.map[coor[0]][coor[1] + j]){
-
+                    
+                    this.addShip(this.allShips[ship.name],[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],)
                     return false
+
                 }
             }
             //add Ship To Board
@@ -53,7 +56,9 @@ function GameBoard(){
                 if(coor[0] + j > 9 || coor[0] + j < 0 || coor[1]  > 9 || coor[1] < 0
                 || this.map[coor[0] + j][coor[1]]){
 
-                    return "Spot is invalid"
+                    this.addShip(this.allShips[ship.name],[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)])
+
+                    return false
                 }
             }
             
@@ -114,20 +119,27 @@ function botPlay(){
     }else{
         botPlay()
     }
+    createBoard()
+
 }
 
-function playerPlay(){
+function playerPlay(...coors){
     
-    let rowCoor = Number(prompt("Choose your row:"))
-    let colCoor = Number(prompt("Choose your col:"))
+    let rowCoor = coors[0]
+    let colCoor = coors[1]
     let playerCoors = [rowCoor,colCoor]
     let shot = botGameBoard.reciveAttack([...playerCoors])
         if(shot){
+            botPlay()
+
+            createBoard()
+            
             return true 
         }else{
             console.log(shot);
             playerPlay()
         }
+
 }
 
 
