@@ -1,38 +1,36 @@
-import{Player,Ship,GameBoard} from "./main.js"
+import { GameBoard,Player,botPlay, playerPlay } from "./main";
+
+export let botGameBoard = GameBoard()
+export let playerGameBoard = GameBoard()
 
 
-// console.log({Player,Ship,GameBoard});
-let turn;
+botGameBoard.addShip(botGameBoard.allShips.patrolBoat,[4,0])
+botGameBoard.addShip(botGameBoard.allShips.submarine,[0,2])
+botGameBoard.addShip(botGameBoard.allShips.destroyer,[2,1])
+botGameBoard.addShip(botGameBoard.allShips.battleShip,[0,9],"vertical")
+botGameBoard.addShip(botGameBoard.allShips.carrier,[7,0],)
 
-//temporary way to initiate game
-let playerGameBoard = GameBoard()
-let botGameBoard = GameBoard()
-
-let patrolBoat =Ship("patrolBoat",2)
-let submarine = Ship("submarine",3)
-let destroyer = Ship("destroyer",3)
-let battleShip = Ship("battleShip",4)
-let carrier = Ship("carrier",5)
-
+playerGameBoard.addShip(playerGameBoard.allShips.patrolBoat,[4,0])
+playerGameBoard.addShip(playerGameBoard.allShips.submarine,[0,2])
+playerGameBoard.addShip(playerGameBoard.allShips.destroyer,[2,1])
+playerGameBoard.addShip(playerGameBoard.allShips.battleShip,[0,9],"vertical")
+playerGameBoard.addShip(playerGameBoard.allShips.carrier,[7,0],)
 
 
+while(Object.keys(botGameBoard.allShips).length > 0 &&
+  Object.keys(playerGameBoard.allShips).length > 0){
 
+    playerPlay()
+    botPlay()
+    
+    console.log(botGameBoard.map);
 
-playerGameBoard.addShip(patrolBoat,[4,0])
-playerGameBoard.addShip(submarine,[2,5],"vertical")
-playerGameBoard.addShip(destroyer,[1,0])
-playerGameBoard.addShip(battleShip,[6,0])
-playerGameBoard.addShip(carrier,[5,4])
-
-
-botGameBoard.addShip(patrolBoat,[4,0])
-botGameBoard.addShip(submarine,[2,5],"vertical")
-botGameBoard.addShip(destroyer,[1,0])
-botGameBoard.addShip(battleShip,[6,0])
-botGameBoard.addShip(carrier,[5,4])
+}
 
 
 
 
 
-console.log({botGameBoard,playerGameBoard});
+
+
+console.log(botGameBoard, playerGameBoard);
