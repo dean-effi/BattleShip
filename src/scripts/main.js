@@ -27,16 +27,14 @@ function GameBoard(){
     const attacksHit =  []
     const map = []
     const row = [0,0,0,0,0,0,0,0,0,0]
-    let allShips = {
-        patrolBoat : Ship("patrolBoat",2),
-        submarine : Ship("submarine",3),
-        destroyer : Ship("destroyer",3),
-        battleShip : Ship("battleShip",4),
-        carrier : Ship("carrier",5)
-    }
     for (let i = 0; i < 10; i++) {
         map.push([...row])
     }
+
+    let allShips = {
+        
+    }
+ 
     const directions = ['horizontal',"vertical"]
     
     function addShip(ship,coor,direction = "horizontal"){
@@ -140,11 +138,6 @@ function GameBoard(){
     return{map,addShip,reciveAttack,allShips}
 }
 
-function Player(name="player1"){
-    let turn = false
-    return{name,turn,shipsPlaced}
-}
-
 function botPlay(){
     let shot = playerGameBoard.reciveAttack([Math.floor(Math.random() * 10),
     Math.floor(Math.random() * 10)])
@@ -177,4 +170,4 @@ function playerPlay(...coors){
 }
 
 
-export{Ship,GameBoard,Player,botPlay,playerPlay}
+export{Ship,GameBoard,botPlay,playerPlay}

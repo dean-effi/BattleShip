@@ -1,33 +1,81 @@
-import { GameBoard,Player,botPlay, playerPlay } from "./main";
-import {createBoard} from "./dom.js"
+import { GameBoard,botPlay, playerPlay,Ship } from "./main";
+import {createBoard, } from "./dom.js"
 
-
+export let availShips = [Ship("patrolBoat",2),Ship("submarine",3),Ship("destroyer",3),
+Ship("battleShip",4),Ship("carrier",5)]
 export let botGameBoard = GameBoard()
 export let playerGameBoard = GameBoard()
 const directions = ['horizontal',"vertical"]
+export let userDirection = "horizontal"
+document.addEventListener("keydown",(e)=>{
+
+  if(e.code == "Space"){
+    if(userDirection == "horizontal"){
+      userDirection = "vertical"
+    }else{
+      userDirection = "horizontal"
+    }
+
+  }
+})
 
 
-export function randomizePlayerBoard(){
-  playerGameBoard.map = playerGameBoard.map.map(()=>{return [0,0,0,0,0,0,0,0,0,0]})
 
-  playerGameBoard.addShip(playerGameBoard.allShips.patrolBoat,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
-  playerGameBoard.addShip(playerGameBoard.allShips.submarine,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
-  playerGameBoard.addShip(playerGameBoard.allShips.destroyer,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
-  playerGameBoard.addShip(playerGameBoard.allShips.battleShip,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
-  playerGameBoard.addShip(playerGameBoard.allShips.carrier,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
+let shipsLeft = true 
+
+export function userShipPlace(board,coors,direcion=userDirection){
+if (shipsLeft){
+  console.log('activated');
+
+  board.addShip(availShips[0],coors,direcion)
+  let movedship = availShips.shift()
+  board['allShips'][movedship.name] = movedship
+}
+
+
+  if(availShips.length < 1){
+    shipsLeft = false
+    console.log('u are done nana');
+  }
+
+  createBoard()
+
+
+}
+
+// userShipPlace(playerGameBoard,[0,0])
+
+
+
+export function randomizeBoard(board){
+
+  board.allShips = {
+        patrolBoat : Ship("patrolBoat",2),
+        submarine : Ship("submarine",3),
+        destroyer : Ship("destroyer",3),
+        battleShip : Ship("battleShip",4),
+        carrier : Ship("carrier",5)
+  }
+
+  if( board == playerGameBoard){
+    shipsLeft = false;
+
+  }
+  board.map = board.map.map(()=>{return [0,0,0,0,0,0,0,0,0,0]})
+
+  board.addShip(board.allShips.patrolBoat,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
+  board.addShip(board.allShips.submarine,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
+  board.addShip(board.allShips.destroyer,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
+  board.addShip(board.allShips.battleShip,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
+  board.addShip(board.allShips.carrier,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
   
 
 }
 
 
-botGameBoard.addShip(botGameBoard.allShips.patrolBoat,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
-botGameBoard.addShip(botGameBoard.allShips.submarine,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
-botGameBoard.addShip(botGameBoard.allShips.destroyer,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
-botGameBoard.addShip(botGameBoard.allShips.battleShip,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
-botGameBoard.addShip(botGameBoard.allShips.carrier,[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
+randomizeBoard(botGameBoard)
+// randomizeBoard(playerGameBoard)
 
-
-randomizePlayerBoard()
 createBoard()
 
 

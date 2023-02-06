@@ -1,5 +1,5 @@
-import { GameBoard,Player,botPlay, playerPlay } from "./main";
-import{playerGameBoard,botGameBoard, randomizePlayerBoard} from "./index.js"
+import { GameBoard,Player,botPlay, playerPlay, } from "./main";
+import{playerGameBoard,botGameBoard, randomizeBoard,userShipPlace,availShips,userDirection} from "./index.js"
 
 
 
@@ -21,6 +21,7 @@ export function createBoard(){
             for (let c = 0; c < players[j].map[r].length; c++) {
 
                 let boardGrid = document.createElement("div")
+                boardGrid.classList.add(`${r},${c}`)
 
                 if(j == 1){
                     boardGrid.addEventListener("click", ()=>{
@@ -39,6 +40,63 @@ export function createBoard(){
                         boardGrid.classList.add("bg-teal-800")
     
                     }
+
+                    boardGrid.addEventListener("click",()=>{
+                        userShipPlace(playerGameBoard,[r,c])
+                        console.log('asfsaf');
+                    })
+
+                    boardGrid.addEventListener("mouseover",()=>{
+                        if(availShips.length > 0){
+
+                            if(userDirection == "horizontal"){
+                                for(let i = 0;i < availShips[0].length;i++){
+                                    let current = document.getElementsByClassName(`${r},${c + i}`)
+                                    current[0].classList.add("bg-teal-500");
+        
+                                    
+                                }
+
+                            }else{
+
+                                for(let i = 0;i < availShips[0].length;i++){
+                                    let current = document.getElementsByClassName(`${r + i  },${c }`)
+                                    current[0].classList.add("bg-teal-500");
+        
+                                    
+                                }
+
+                            }
+
+                        }
+                     
+                    })
+
+                    boardGrid.addEventListener("mouseout",()=>{
+
+                        if(availShips.length > 0){
+
+                            if(userDirection == "horizontal"){
+                                for(let i = 0;i < availShips[0].length;i++){
+                                    let current = document.getElementsByClassName(`${r},${c + i}`)
+                                    current[0].classList.remove("bg-teal-500");
+        
+                                    
+                                }
+
+                            }else{
+
+                                for(let i = 0;i < availShips[0].length;i++){
+                                    let current = document.getElementsByClassName(`${r + i  },${c }`)
+                                    current[0].classList.remove("bg-teal-500");
+        
+                                    
+                                }
+
+                            }
+
+                        }
+                    })
     
 
                 }
@@ -65,22 +123,9 @@ export function createBoard(){
                 board[j].append(boardGrid)
 
 
-
+                
             }
-
-       
-        
-        
-        
         }
-
-
-
-
-
-
-
-
     }
   
 }
@@ -101,7 +146,9 @@ function startGame(){
 
 startBtn.addEventListener("click",startGame)
 randomBtn.addEventListener("click",()=>{
-    randomizePlayerBoard()
+    randomizeBoard(playerGameBoard)
     createBoard()
 
 })
+
+
