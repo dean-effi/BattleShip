@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes opacity-up{
+    from{opacity:0;}
+    to{opacity:100}
+}
+
+.appear{
+    animation-name: opacity-up;
+    animation-duration: 1s;
+}

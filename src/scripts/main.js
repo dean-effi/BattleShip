@@ -1,6 +1,9 @@
 import { createBoard } from "./dom.js"
 import{playerGameBoard,botGameBoard} from "./index.js"
 
+
+
+
 function Ship(name,length){
     let hits = 0
     let sank = false 
@@ -17,6 +20,8 @@ function Ship(name,length){
     return{name,length,hit,sank,sink}
 
 }
+
+
 function GameBoard(){
     const attacksMissed = []
     const attacksHit =  []
@@ -32,15 +37,30 @@ function GameBoard(){
     for (let i = 0; i < 10; i++) {
         map.push([...row])
     }
-
+    const directions = ['horizontal',"vertical"]
+    
     function addShip(ship,coor,direction = "horizontal"){
         if(direction == "horizontal"){  
             //check if coors available
+            // console.log(typeof this.map[coor[0] - 1 ] == undefined);
+        
             for(let j = 0; j < ship.length; j++){
-                if(coor[0]  > 9 || coor[0]  < 0 || coor[1] + j > 9 || coor[1] + j < 0 
-                || this.map[coor[0]][coor[1] + j]){
-                    
-                    this.addShip(this.allShips[ship.name],[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],)
+                if(
+                (coor[1] + j) > 9|| 
+                (coor[1] + j) < 0||
+                this.map[coor[0]][coor[1]] ||
+                this.map[coor[0]][coor[1] + j]||
+                typeof this.map[coor[0]][coor[1] + j + 1] != "undefined" && this.map[coor[0]][coor[1] + j + 1]||
+                typeof this.map[coor[0]][coor[1] + j - 1] != "undefined" && this.map[coor[0]][coor[1] + j - 1]||
+                typeof this.map[coor[0] + 1] != "undefined" && this.map[coor[0] + 1][coor[1] + j]||
+                typeof this.map[coor[0] - 1] != "undefined" && this.map[coor[0] - 1][coor[1] + j ]
+
+
+
+
+                
+                    ){
+                    this.addShip(this.allShips[ship.name],[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)],directions[Math.floor(Math.random() * 2)])
                     return false
 
                 }
@@ -53,8 +73,19 @@ function GameBoard(){
 
             //check if coors available
             for(let j = 0; j < ship.length; j++){
-                if(coor[0] + j > 9 || coor[0] + j < 0 || coor[1]  > 9 || coor[1] < 0
-                || this.map[coor[0] + j][coor[1]]){
+                if(
+                    (coor[0] + j) > 9|| 
+                    (coor[0] + j) < 0 ||
+                    this.map[coor[0]][coor[1]] ||
+                    this.map[coor[0] + j][coor[1]]||
+                    typeof this.map[coor[0] + j][coor[1]  + 1] != "undefined" && this.map[coor[0] + j][coor[1]  + 1]||
+                    typeof this.map[coor[0] + j][coor[1] - 1] != "undefined" && this.map[coor[0]  + j][coor[1] - 1]||
+                    typeof this.map[coor[0] + 1] != "undefined" && this.map[coor[0] + 1][coor[1] + j]||
+                    typeof this.map[coor[0] - 1] != "undefined" && this.map[coor[0] - 1][coor[1] + j ]
+    
+
+                )
+                {
 
                     this.addShip(this.allShips[ship.name],[Math.floor(Math.random() * 9),Math.floor(Math.random() * 9)])
 
@@ -64,10 +95,13 @@ function GameBoard(){
             
             //add Ship To Board
             for(let i = 0; i < ship.length; i++){
+
                 this.map[coor[0] + i][coor[1]] = ship.name
             }
         }
     }
+
+
     function reciveAttack(coors){
 
         //checks if already shot
@@ -141,7 +175,6 @@ function playerPlay(...coors){
         }
 
 }
-
 
 
 export{Ship,GameBoard,Player,botPlay,playerPlay}
