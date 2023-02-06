@@ -28,7 +28,7 @@ items-center  overflow-hidden text-gray-100 lg:text-2xl">
         <section class="player-section h-full mb-20">
             <h1 class="">Your Board:</h1>
             <div class="w-full h-full board player-board border-4 
-            border-white  lg:border-r-red-400
+            border-white  lg:border-r-red-400 backdrop-blur-lg
             grid grid-cols-10 grid-rows-10  ">
             </div>
     
@@ -38,16 +38,16 @@ items-center  overflow-hidden text-gray-100 lg:text-2xl">
 
 
 
-            <section class=" enemy-section h-full  hidden ">
+            <section class=" enemy-section h-full hidden  ">
                 <h1>Enemy's Board:</h1>
                 <div class="w-full h-full board bot-board  border-4 
-                border-white grid grid-cols-10 grid-rows-10 cursor-pointer lg:border-l-red-400 ">
+                border-white grid grid-cols-10 grid-rows-10 cursor-pointer  backdrop-blur-lg lg:border-l-red-400 ">
                 </div>
         
             </section>
          
             <div class="flex justify-center space-x-3 ">
-                <button class="start-btn border text-lg px-4 py-2 m-0 border-black  self-start mt-10 bg-green-600 rounded-sm">Start Game</button>
+                <button class="start-btn border text-lg px-4 py-2 m-0 border-black  self-start mt-10 bg-green-600 rounded-sm ">Start Game</button>
                 <button class="random-btn border text-lg px-4 py-2 m-0 border-black self-start mt-10 bg-teal-600  rounded-sm">Randomize</button>
         
             </div>
