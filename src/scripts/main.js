@@ -1,6 +1,5 @@
-import { createBoard } from "./dom.js"
-import{playerGameBoard,botGameBoard} from "./index.js"
-
+import { createBoard,endGame } from "./dom.js"
+import{playerGameBoard,botGameBoard,} from "./index.js"
 
 
 
@@ -12,10 +11,13 @@ function Ship(name,length){
         if(hits >= length){
             this.sink()
         }
+        
+      
     }
     function sink(){
         this.sank = true 
         console.log(this.name + ' HAS SANKKKK!');
+     
     }
     return{name,length,hit,sank,sink}
 
@@ -119,6 +121,19 @@ function GameBoard(){
             this.allShips[this.map[coors[0]][coors[1]]].hit()
             if(this.allShips[this.map[coors[0]][coors[1]]].sank){
                 delete this.allShips[this.map[coors[0]][coors[1]]]
+
+                //call game over
+                if(Object.keys(playerGameBoard.allShips).length < 1 ||Object.keys( botGameBoard.allShips).length < 1 ){
+                    if(Object.keys(botGameBoard.allShips).length < 1){
+                        setTimeout(endGame,500,"player") 
+
+
+                    }else{
+                        setTimeout(endGame,500,"bot") 
+
+                    }
+                    console.log('GAME OVER');
+                };
             }
 
             this.map[coors[0]][coors[1]] = 'H'
@@ -170,4 +185,6 @@ function playerPlay(...coors){
 }
 
 
-export{Ship,GameBoard,botPlay,playerPlay}
+
+
+export{Ship,GameBoard,botPlay,playerPlay,}

@@ -11,3 +11,8 @@
     animation-name: opacity-up;
     animation-duration: 1s;
 }
+
+.appear-slow{
+    animation-name: opacity-up;
+    animation-duration: 1s;
+}

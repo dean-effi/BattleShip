@@ -1,11 +1,17 @@
-import { GameBoard,Player,botPlay, playerPlay, } from "./main";
-import{playerGameBoard,botGameBoard, randomizeBoard,userShipPlace,availShips,userDirection} from "./index.js"
+import { GameBoard,Player,botPlay, playerPlay,  } from "./main";
+import{playerGameBoard,botGameBoard, randomizeBoard,userShipPlace,availShips,userDirection,shipsLeft,resetMap} from "./index.js"
 
 
 
 const board = Array.from(document.querySelectorAll(".board")) 
 const startBtn = document.querySelector(".start-btn")
 const randomBtn = document.querySelector(".random-btn")
+const resetBtn = document.querySelector(".reset-btn")
+const restartBtn = document.querySelector(".restart-btn")
+const restartBtn2 = document.querySelector(".restart-btn2")
+
+
+
 
 const enemySection = document.querySelector(".enemy-section")
 const bothBoards = document.querySelector(".both-boards")
@@ -25,8 +31,7 @@ export function createBoard(){
 
                 if(j == 1){
                     boardGrid.addEventListener("click", ()=>{
-                        console.log(r);
-                        console.log(c);
+                      
                         playerPlay(r,c)
 
                         
@@ -43,11 +48,10 @@ export function createBoard(){
 
                     boardGrid.addEventListener("click",()=>{
                         userShipPlace(playerGameBoard,[r,c])
-                        console.log('asfsaf');
                     })
 
                     boardGrid.addEventListener("mouseover",()=>{
-                        if(availShips.length > 0){
+                        if(shipsLeft > 0){
 
                             if(userDirection == "horizontal"){
                                 for(let i = 0;i < availShips[0].length;i++){
@@ -74,7 +78,7 @@ export function createBoard(){
 
                     boardGrid.addEventListener("mouseout",()=>{
 
-                        if(availShips.length > 0){
+                        if(shipsLeft){
 
                             if(userDirection == "horizontal"){
                                 for(let i = 0;i < availShips[0].length;i++){
@@ -100,23 +104,14 @@ export function createBoard(){
     
 
                 }
-              
                 if(players[j].map[r][c] == "H"){
                     boardGrid.classList.add("bg-rose-800")
 
                 }
-
-                
                 if(players[j].map[r][c] == "M"){
                     boardGrid.classList.add("bg-gray-800")
 
                 }
-
-
-              
-
-
-
 
                 boardGrid.classList.add("w-full","h-full","border","border-white"
                 ,"board-grid","overflow-hidden")
@@ -132,15 +127,17 @@ export function createBoard(){
 
 
 function startGame(){
-    console.log('start');
-    console.log(startBtn);
-    startBtn.classList.add("hidden")
-
-    enemySection.classList.remove("hidden")
-    enemySection.classList.add("appear")
-
-    bothBoards.classList.add("lg:grid-cols-[40%,40%]",)
-    randomBtn.classList.add("hidden")
+    if(shipsLeft == false){
+        startBtn.classList.add("hidden")
+    
+        enemySection.classList.remove("hidden")
+        enemySection.classList.add("appear")
+    
+        bothBoards.classList.add("lg:grid-cols-[40%,40%]",)
+        randomBtn.classList.add("hidden")
+        resetBtn.classList.add("hidden")
+    }
+    
 }
 
 
@@ -151,4 +148,32 @@ randomBtn.addEventListener("click",()=>{
 
 })
 
+resetBtn.addEventListener("click",()=>{
+    resetMap()
+    createBoard()
+})
 
+restartBtn.addEventListener("click",()=>{
+    location.reload()
+})
+
+restartBtn2.addEventListener("click",()=>{
+    location.reload()
+})
+
+
+let endScreen = document.querySelector(".end-screen")
+let winEndScreen = document.querySelector(".win-end-screen")
+
+export function endGame(winner){
+    if(winner == "player"){
+
+        winEndScreen.classList.remove("hidden")
+
+    }else{
+
+        endScreen.classList.remove("hidden")
+
+    }
+
+}

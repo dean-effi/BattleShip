@@ -1,19 +1,37 @@
 import { GameBoard,botPlay, playerPlay,Ship } from "./main";
 import {createBoard, } from "./dom.js"
 
-export let availShips = [Ship("patrolBoat",2),Ship("submarine",3),Ship("destroyer",3),
+
+export let shipsList = [Ship("patrolBoat",2),Ship("submarine",3),Ship("destroyer",3),
 Ship("battleShip",4),Ship("carrier",5)]
+
+
+export let availShips = [...shipsList]
+export let shipsLeft = true 
+
+
+
+
+
 export let botGameBoard = GameBoard()
 export let playerGameBoard = GameBoard()
 const directions = ['horizontal',"vertical"]
 export let userDirection = "horizontal"
+
+
+
+
+
+
+
+
 document.addEventListener("keydown",(e)=>{
 
   if(e.code == "Space"){
     if(userDirection == "horizontal"){
       userDirection = "vertical"
     }else{
-      userDirection = "horizontal"
+      userDirection = "horizontal" 
     }
 
   }
@@ -21,11 +39,9 @@ document.addEventListener("keydown",(e)=>{
 
 
 
-let shipsLeft = true 
 
 export function userShipPlace(board,coors,direcion=userDirection){
 if (shipsLeft){
-  console.log('activated');
 
   board.addShip(availShips[0],coors,direcion)
   let movedship = availShips.shift()
@@ -35,7 +51,6 @@ if (shipsLeft){
 
   if(availShips.length < 1){
     shipsLeft = false
-    console.log('u are done nana');
   }
 
   createBoard()
@@ -72,9 +87,20 @@ export function randomizeBoard(board){
 
 }
 
+export function resetMap(){
+  playerGameBoard.map = playerGameBoard.map.map(()=>{return [0,0,0,0,0,0,0,0,0,0]})
+  playerGameBoard.allShips = {}
+  shipsLeft = true
+  availShips = [...shipsList]
+  console.log(availShips);
+}
+
+
+
+
+
 
 randomizeBoard(botGameBoard)
-// randomizeBoard(playerGameBoard)
 
 createBoard()
 
