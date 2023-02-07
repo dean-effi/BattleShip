@@ -9,18 +9,43 @@
     <title>BattleShip</title>
 </head>
 <body class="h-screen w-full justify-center
-items-center  overflow-hidden text-gray-100 lg:text-2xl">
+items-center  overflow-hidden text-gray-100 lg:text-2xl relative">
 
     <img 
     src="ocean1.jpg"
-    class="absolute layer h-screen w-screen z-0 blur-[6px]">
+    class="absolute layer h-screen w-screen  blur-[6px]">
 
+    <div class="end-screen absolute z-10  bg-opacity-30 w-full h-full bg-rose-400  appear-slow text-center 
+    flex justify-center items-center flex-col hidden">
+
+        <div class="lg:mb-60 text-4xl border w-96 h-96 p-10 flex flex-col justify-around rounded-lg
+        bg-rose-800 ">
+            <div class="border p-2 bg-white text-red-800 rounded-md h-2/5
+            flex items-center justif-center ">  <h1 class="w-full">You Lost</h1> </div>
+
+            <button class="restart-btn border text-red-900 text-[1.7rem] px-4 py-2  border-black  bg-slate-200  hover:bg-slate-300 rounded-md  lg:px-5 lg:py-3 ">Restart</button>
+        </div>
+    </div>
+
+
+
+    <div class="win-end-screen absolute z-10  bg-opacity-30 w-full h-full bg-emerald-300 appear-slow text-center 
+    flex justify-center items-center flex-col hidden">
+
+        <div class="lg:mb-60 text-4xl border w-96 h-96 p-10 flex flex-col justify-around rounded-lg
+        bg-emerald-600 ">
+            <div class="border p-2 bg-white text-green-800 rounded-md h-2/5
+            flex items-center justif-center ">  <h1 class="w-full">YOU WON</h1> </div>
+
+            <button class="restart-btn2 border text-green-900 text-[1.7rem] px-4 py-2  border-black  bg-slate-200  hover:bg-slate-300 rounded-md  lg:px-5 lg:py-3 ">Restart</button>
+        </div>
+    </div>
     
 
-        <div class="both-boards h-full w-full grid  lg:space-x-10 space-y-12 lg:space-y-0 relative px-4  pt-10
-        z-100 grid-cols-1 md:grid-cols-[40%] 
+        <div class="both-boards h-full  w-full grid relative lg:space-x-10 space-y-12 lg:space-y-0  px-4  pt-10
+         grid-cols-1 md:grid-cols-[45%] 
         
-        justify-center  lg:grid-rows-[70%,20%] transform-o appear">
+        justify-center  lg:grid-rows-[70%,20%] transform appear">
     
 
 
@@ -46,9 +71,10 @@ items-center  overflow-hidden text-gray-100 lg:text-2xl">
         
             </section>
          
-            <div class="flex justify-center space-x-3 ">
-                <button class="start-btn border text-lg px-4 py-2 m-0 border-black  self-start mt-10 bg-green-600 rounded-sm ">Start Game</button>
-                <button class="random-btn border text-lg px-4 py-2 m-0 border-black self-start mt-10 bg-teal-600  rounded-sm">Randomize</button>
+            <div class="grid grid-cols-2 auto-rows-min justify-center items-start gap-1 relative top-2 lg:top-14 lg:right-3">
+                <button class="reset-btn border  px-4 py-2  border-black  bg-rose-300 bg-opacity-50 hover:bg-opacity-100   rounded-md  lg:px-6 lg:py-3">Reset</button>
+                <button class="random-btn border  px-4 py-2  border-black   bg-teal-600 bg-opacity-50 hover:bg-opacity-100  rounded-md lg:px-6 lg:py-3">Randomize</button>
+                <button class="start-btn border   py-2  border-black col-span-2    bg-green-600 bg-opacity-50 hover:bg-opacity-100 rounded-md px-6 lg:py-3">Start Game</button>
         
             </div>
     
