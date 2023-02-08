@@ -1,4 +1,4 @@
-import { createBoard,endGame } from "./dom.js"
+import { createBoard,endGame,updateConsole } from "./dom.js"
 import{playerGameBoard,botGameBoard,} from "./index.js"
 
 
@@ -24,7 +24,8 @@ function Ship(name,length){
 }
 
 
-function GameBoard(){
+function GameBoard(name){
+    const boardName = name
     const attacksMissed = []
     const attacksHit =  []
     const map = []
@@ -117,9 +118,21 @@ function GameBoard(){
         if(this.map[coors[0]][coors[1]]){
             attacksHit.push(coors)
             //turn name string into variable to hit correct ship 
+            console.log(this.boardName);
             console.log('Thats a hit!');
+            updateConsole(this.boardName," Hit The " + this.allShips[this.map[coors[0]][coors[1]]].name.toUpperCase(),)
             this.allShips[this.map[coors[0]][coors[1]]].hit()
             if(this.allShips[this.map[coors[0]][coors[1]]].sank){
+                if(this.boardName == "enemy"){
+
+                    updateConsole(this.boardName, " Sank The " + this.allShips[this.map[coors[0]][coors[1]]].name,"green")
+
+                }else{
+                    updateConsole(this.boardName, " Sank The " + this.allShips[this.map[coors[0]][coors[1]]].name,"red")
+
+
+                }
+
                 delete this.allShips[this.map[coors[0]][coors[1]]]
 
                 //call game over
@@ -145,12 +158,14 @@ function GameBoard(){
             return true
         }else{
             attacksMissed.push(coors)
+            updateConsole(this.boardName," Missed")
+
             this.map[coors[0]][coors[1]] = 'M'
             console.log('MISSED@!');
             return true 
         }
     }
-    return{map,addShip,reciveAttack,allShips}
+    return{map,addShip,reciveAttack,allShips,boardName}
 }
 
 function botPlay(){

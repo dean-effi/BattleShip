@@ -11,10 +11,9 @@ export let shipsLeft = true
 
 
 
+export let botGameBoard = GameBoard("enemy")
+export let playerGameBoard = GameBoard("player")
 
-
-export let botGameBoard = GameBoard()
-export let playerGameBoard = GameBoard()
 const directions = ['horizontal',"vertical"]
 export let userDirection = "horizontal"
 

@@ -9,8 +9,11 @@ const randomBtn = document.querySelector(".random-btn")
 const resetBtn = document.querySelector(".reset-btn")
 const restartBtn = document.querySelector(".restart-btn")
 const restartBtn2 = document.querySelector(".restart-btn2")
+const explain = document.querySelector(".explain")
+const eventsConsole = document.querySelector(".console")
 
-
+const enemyText = document.querySelector(".enemy-txt")
+const playerText = document.querySelector(".player-txt")
 
 
 const enemySection = document.querySelector(".enemy-section")
@@ -18,7 +21,23 @@ const bothBoards = document.querySelector(".both-boards")
 
 
 
+
+// eventsConsole.scrollTop = eventsConsole.scrollHeight;
+
+// eventsConsole.scrollIntoView(false);
+
+console.log(eventsConsole);
+eventsConsole.scrollIntoView(true)
+
+
 export function createBoard(){
+    if(shipsLeft){
+        explain.textContent = `Place Your ${availShips[0].name[0].toUpperCase() + availShips[0].name.substring(1)} Press Space to Rotate`
+    }else{
+
+        explain.textContent = `Your Ships Are All Set!`
+
+    }
     let players = [playerGameBoard,botGameBoard, ]
     for(let j = 0;j < 2;j++){
         board[j].innerHTML = ''
@@ -41,8 +60,10 @@ export function createBoard(){
                 }
               
                 if(j == 0){
-                    if(players[j].map[r][c]){
+                    if(Object.keys(playerGameBoard.allShips).includes(players[j].map[r][c])
+                    || players[j].map[r][c] == "H"){
                         boardGrid.classList.add("bg-teal-800")
+
     
                     }
 
@@ -105,11 +126,22 @@ export function createBoard(){
 
                 }
                 if(players[j].map[r][c] == "H"){
-                    boardGrid.classList.add("bg-rose-800")
+                    let shotSign = document.createElement("div")
+                    boardGrid.append(shotSign)
+                    
+                    boardGrid.classList.add("relative")
+                    shotSign.classList.add("lg:h-5","lg:w-5","bg-rose-800","rounded-full","absolute"
+                    ,"top-[32%]","left-[37%]","h-2","w-2","lg:top-[29%]","lg:left-[33%]")
+
 
                 }
                 if(players[j].map[r][c] == "M"){
-                    boardGrid.classList.add("bg-gray-800")
+                    let shotSign = document.createElement("div")
+                    boardGrid.append(shotSign)
+
+                    boardGrid.classList.add("relative")
+                    shotSign.classList.add("lg:h-5","lg:w-5","bg-white","rounded-full","absolute"
+                    ,"top-[32%]","left-[37%]","h-2","w-2","lg:top-[29%]","lg:left-[33%]")
 
                 }
 
@@ -132,13 +164,69 @@ function startGame(){
     
         enemySection.classList.remove("hidden")
         enemySection.classList.add("appear")
-    
+
+        eventsConsole.classList.remove("hidden")
+
+        
+        bothBoards.classList.remove("lg:grid-cols-[45%]")
+        bothBoards.classList.remove("grid-rows-[50%,20%,5%]")
+
         bothBoards.classList.add("lg:grid-cols-[40%,40%]",)
         randomBtn.classList.add("hidden")
         resetBtn.classList.add("hidden")
+        explain.classList.add("hidden")
+
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+    //to skip main  screen
+
+    // startBtn.classList.add("hidden")
+
+    // enemySection.classList.remove("hidden")
+    // enemySection.classList.add("appear")
+
+    // eventsConsole.classList.remove("hidden")
+
+    
+    // bothBoards.classList.remove("lg:grid-cols-[45%]")
+    // bothBoards.classList.remove("grid-rows-[50%,20%,5%]")
+
+    // bothBoards.classList.add("lg:grid-cols-[40%,40%]",)
+    // randomBtn.classList.add("hidden")
+    // resetBtn.classList.add("hidden")
+    // explain.classList.add("hidden")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 startBtn.addEventListener("click",startGame)
@@ -176,4 +264,17 @@ export function endGame(winner){
 
     }
 
+}
+
+export function updateConsole(boardName,msg,color="white"){
+
+    if(boardName == "enemy"){
+        playerText.textContent = " - You Have" + msg
+        playerText.style.color = color
+
+    }else{
+        enemyText.textContent = " - Enemy Has" +  msg
+        enemyText.style.color = color
+    }
+    
 }
