@@ -9,7 +9,7 @@
     <title>BattleShip</title>
 </head>
 <body class="h-screen w-full justify-center
-items-center  overflow-hidden text-gray-100 lg:text-2xl relative">
+items-center   text-gray-100 lg:text-2xl ">
 
     <img 
     src="ocean1.jpg"
@@ -42,16 +42,20 @@ items-center  overflow-hidden text-gray-100 lg:text-2xl relative">
     </div>
     
 
-        <div class="both-boards h-full  w-full grid relative lg:space-x-10 space-y-12 lg:space-y-0  px-4  pt-10
-         grid-cols-1 md:grid-cols-[45%] 
-        
-        justify-center  lg:grid-rows-[70%,20%] transform appear">
+
+
+
+
+        <div class="both-boards self-start h-full w-full grid relative lg:space-x-10 lg:space-y-0  px-4 pt-5 lg:pt-10
+             lg:grid-rows-[70%,18%,10%]  lg:grid-cols-[45%] grid-rows-[50%,20%,5%] lg:justify-center appear">
     
+        <div class="explain row-start-3 self-start md:self-center text-center lg:text-2xl animate-pulse text-lg">
+            <p class="relative ">Place Your Carrier - Press Space To Rotate</p>
+        </div>
 
 
-
-        <section class="player-section h-full mb-20">
-            <h1 class="">Your Board:</h1>
+        <section class="player-section h-full mb-20 ">
+            <h1 class="">Your Board</h1>
             <div class="w-full h-full board player-board border-4 
             border-white  lg:border-r-red-400 backdrop-blur-lg
             grid grid-cols-10 grid-rows-10  ">
@@ -61,24 +65,33 @@ items-center  overflow-hidden text-gray-100 lg:text-2xl relative">
 
 
 
-
-
-            <section class=" enemy-section h-full hidden  ">
-                <h1>Enemy's Board:</h1>
-                <div class="w-full h-full board bot-board  border-4 
+            <section class=" enemy-section h-full hidden mt-8 ">
+                <h1>Enemy's Board</h1>
+                <div class="w-full h-full board bot-board  border-4 row-span-2
                 border-white grid grid-cols-10 grid-rows-10 cursor-pointer  backdrop-blur-lg lg:border-l-red-400 ">
                 </div>
         
             </section>
          
-            <div class="grid grid-cols-2 auto-rows-min justify-center items-start gap-1 relative top-2 lg:top-14 lg:right-3">
+            <div class="grid grid-cols-2 auto-rows-min justify-center items-start gap-1 relative  lg:top-10 top-8">
                 <button class="reset-btn border  px-4 py-2  border-black  bg-rose-300 bg-opacity-50 hover:bg-opacity-100   rounded-md  lg:px-6 lg:py-3">Reset</button>
                 <button class="random-btn border  px-4 py-2  border-black   bg-teal-600 bg-opacity-50 hover:bg-opacity-100  rounded-md lg:px-6 lg:py-3">Randomize</button>
                 <button class="start-btn border   py-2  border-black col-span-2    bg-green-600 bg-opacity-50 hover:bg-opacity-100 rounded-md px-6 lg:py-3">Start Game</button>
         
             </div>
     
-    
+            
+
+            <div class="console hidden  w-full h-16 self-end absolute
+            lg:border-8 border-4 border-double text-center lg:h-24 lg:w-1/3 lg:left-1/3 lg:bottom-10 lg:rounded-md 
+             lg:text-left lg:space-y-1 lg:p-2 bg-slate-500 bg-opacity-20"">
+
+               
+                <p class="player-txt ">&nbsp; - Game Has Started</p>
+                <p class="enemy-txt "> </p>
+                
+
+            </div>
         </div>
       
 
