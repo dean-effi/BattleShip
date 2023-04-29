@@ -105,43 +105,27 @@ export function createBoard() {
             }
           });
         }
+        let shotSign = document.createElement("div");
+        shotSign.classList.add(
+          "lg:h-5",
+          "lg:w-5",
+          "bg-rose-800",
+          "rounded-full",
+          "absolute",
+          "top-[32%]",
+          "left-[37%]",
+          "h-2",
+          "w-2",
+          "lg:top-[29%]",
+          "lg:left-[33%]"
+        );
+        boardGrid.classList.add("relative");
         if (players[j].map[r][c] == "H") {
-          let shotSign = document.createElement("div");
           boardGrid.append(shotSign);
-
-          boardGrid.classList.add("relative");
-          shotSign.classList.add(
-            "lg:h-5",
-            "lg:w-5",
-            "bg-rose-800",
-            "rounded-full",
-            "absolute",
-            "top-[32%]",
-            "left-[37%]",
-            "h-2",
-            "w-2",
-            "lg:top-[29%]",
-            "lg:left-[33%]"
-          );
         }
         if (players[j].map[r][c] == "M") {
-          let shotSign = document.createElement("div");
           boardGrid.append(shotSign);
-
-          boardGrid.classList.add("relative");
-          shotSign.classList.add(
-            "lg:h-5",
-            "lg:w-5",
-            "bg-white",
-            "rounded-full",
-            "absolute",
-            "top-[32%]",
-            "left-[37%]",
-            "h-2",
-            "w-2",
-            "lg:top-[29%]",
-            "lg:left-[33%]"
-          );
+          shotSign.classList.add("bg-white");
         }
 
         boardGrid.classList.add(
@@ -161,6 +145,9 @@ export function createBoard() {
 function startGame() {
   if (shipsLeft == false) {
     startBtn.classList.add("hidden");
+    randomBtn.classList.add("hidden");
+    resetBtn.classList.add("hidden");
+    explain.classList.add("hidden");
 
     enemySection.classList.remove("hidden");
     enemySection.classList.add("appear");
@@ -171,9 +158,6 @@ function startGame() {
     bothBoards.classList.remove("grid-rows-[50%,20%,5%]");
 
     bothBoards.classList.add("lg:grid-cols-[40%,40%]");
-    randomBtn.classList.add("hidden");
-    resetBtn.classList.add("hidden");
-    explain.classList.add("hidden");
   }
 }
 

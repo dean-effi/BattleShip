@@ -58,7 +58,6 @@ export function resetMap() {
   playerGameBoard.allShips = {};
   shipsLeft = true;
   availShips = [...shipsList];
-  console.log(availShips);
 }
 
 randomizeBoard(botGameBoard);

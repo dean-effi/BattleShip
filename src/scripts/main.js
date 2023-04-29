@@ -12,7 +12,6 @@ function Ship(name, length) {
   }
   function sink() {
     this.sank = true;
-    console.log(this.name + " HAS SANKKKK!");
   }
   return { name, length, hit, sank, sink };
 }
@@ -35,7 +34,6 @@ function GameBoard(name) {
   function addShip(ship, coor, direction = "horizontal") {
     if (direction == "horizontal") {
       //check if coors available
-      // console.log(typeof this.map[coor[0] - 1 ] == undefined);
 
       for (let j = 0; j < ship.length; j++) {
         if (
@@ -102,34 +100,31 @@ function GameBoard(name) {
     for (let arr of [...attacksHit, ...attacksMissed]) {
       if (arr[0] == coors[0]) {
         if (arr[1] == coors[1]) {
-          console.log("already shot there ");
           return 0;
         }
       }
     }
     //evaluates if the shot hit or missed
     if (this.map[coors[0]][coors[1]]) {
+      let currentShip = this.allShips[this.map[coors[0]][coors[1]]];
       attacksHit.push(coors);
       //turn name string into variable to hit correct ship
-      console.log(this.boardName);
-      console.log("Thats a hit!");
       updateConsole(
         this.boardName,
-        " Hit The " +
-          this.allShips[this.map[coors[0]][coors[1]]].name.toUpperCase()
+        " Hit The " + currentShip.name.toUpperCase()
       );
-      this.allShips[this.map[coors[0]][coors[1]]].hit();
-      if (this.allShips[this.map[coors[0]][coors[1]]].sank) {
+      currentShip.hit();
+      if (currentShip.sank) {
         if (this.boardName == "enemy") {
           updateConsole(
             this.boardName,
-            " Sank The " + this.allShips[this.map[coors[0]][coors[1]]].name,
+            " Sank The " + currentShip.name.toUpperCase(),
             "green"
           );
         } else {
           updateConsole(
             this.boardName,
-            " Sank The " + this.allShips[this.map[coors[0]][coors[1]]].name,
+            " Sank The " + currentShip.name.toUpperCase(),
             "red"
           );
         }
@@ -146,35 +141,64 @@ function GameBoard(name) {
           } else {
             setTimeout(endGame, 500, "bot");
           }
-          console.log("GAME OVER");
         }
       }
 
       this.map[coors[0]][coors[1]] = "H";
 
-      return true;
+      return currentShip;
     } else {
       attacksMissed.push(coors);
       updateConsole(this.boardName, " Missed");
 
       this.map[coors[0]][coors[1]] = "M";
-      console.log("MISSED@!");
       return true;
     }
   }
-  return { map, addShip, reciveAttack, allShips, boardName };
+  return { map, addShip, reciveAttack, allShips, boardName, attacksHit };
 }
-
+let lastShipHit = false;
 function botPlay() {
-  let shot = playerGameBoard.reciveAttack([
-    Math.floor(Math.random() * 10),
-    Math.floor(Math.random() * 10),
-  ]);
+  let attacksHit = playerGameBoard.attacksHit;
+  let shot;
+  if (lastShipHit.sank) {
+    lastShipHit = false;
+  }
+  if (lastShipHit) {
+    let randCoorOne =
+      attacksHit[attacksHit.length - 1][0] +
+      Math.round((Math.random() - 0.5) * ((lastShipHit.length - 1) * 2));
+
+    let randCoorTwo =
+      attacksHit[attacksHit.length - 1][1] +
+      Math.round((Math.random() - 0.5) * ((lastShipHit.length - 1) * 2));
+
+    if (
+      randCoorOne > 9 ||
+      randCoorOne < 0 ||
+      randCoorTwo > 9 ||
+      randCoorTwo < 0
+    ) {
+      shot = false;
+    } else {
+      shot = playerGameBoard.reciveAttack([randCoorOne, randCoorTwo]);
+    }
+  } else {
+    shot = playerGameBoard.reciveAttack([
+      Math.floor(Math.random() * 10),
+      Math.floor(Math.random() * 10),
+    ]);
+  }
+  if (shot.name) {
+    lastShipHit = shot;
+  }
+
   if (shot) {
     return true;
   } else {
     botPlay();
   }
+
   createBoard();
 }
 
@@ -190,7 +214,6 @@ function playerPlay(...coors) {
 
     return true;
   } else {
-    console.log(shot);
     playerPlay();
   }
 }
